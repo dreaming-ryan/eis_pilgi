@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230F766E'/><text x='50' y='68' text-anchor='middle' font-size='56' font-family='serif' font-weight='700' fill='%23fff'>필</text></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>산업안전기사 필기 — 기출문제 학습</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F4F7F2;--surface:#FFFFFF;--border:#D8E4D4;
+  --text-main:#1A1F18;--text-sub:#506047;--text-muted:#8FA886;
+  --point:#0F766E;--point-l:#E0F5F2;--point-d:#0B5C55;
+  --green:#2E6B3A;--green-l:#E5F2E7;
+  --navy:#1A5F9E;--navy-l:#E4EEF8;
+  --orange:#C2410C;--orange-l:#FFE7D6;
+  --r-lg:20px;--r-md:14px;
+  --sh-sm:0 1px 4px rgba(28,26,22,.06);--sh-lg:0 12px 40px rgba(28,26,22,.12)
+}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text-main);min-height:100vh;display:flex;flex-direction:column;align-items:center}
+.site-header{width:100%;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:10}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{width:34px;height:34px;background:var(--point);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.logo-text{font-size:15px;font-weight:600;color:var(--text-main);letter-spacing:-.02em}
+.logo-text span{color:var(--point)}
+.header-badge{font-size:12px;font-weight:500;color:var(--point);background:var(--point-l);padding:4px 12px;border-radius:20px}
+.main{width:100%;max-width:680px;padding:3.5rem 1.5rem 6rem;flex:1}
+.hero{text-align:center;margin-bottom:3.5rem;animation:fadeUp .6s ease both}
+.hero-eyebrow{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--point);background:var(--point-l);padding:5px 14px;border-radius:20px;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(26px,5vw,36px);font-weight:700;letter-spacing:-.03em;line-height:1.3;margin-bottom:.9rem}
+.hero h1 em{color:var(--point);font-style:normal}
+.hero p{font-size:15px;color:var(--text-sub);line-height:1.75}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:2.5rem;animation:fadeUp .6s .1s ease both}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:1.1rem 1rem;text-align:center}
+.stat-num{font-size:26px;font-weight:700;color:var(--text-main);letter-spacing:-.03em;line-height:1;min-height:32px}
+.stat-num sub{font-size:14px;font-weight:500;vertical-align:baseline}
+.stat-label{font-size:11px;color:var(--text-muted);margin-top:5px;font-weight:500}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem}
+.main-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:2rem}
+.main-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem 1.6rem 1.8rem;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;gap:14px;transition:all .2s ease;position:relative;overflow:hidden;box-shadow:var(--sh-sm)}
+.main-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0;opacity:0;transition:opacity .2s}
+.main-card:hover{box-shadow:var(--sh-lg);transform:translateY(-3px);border-color:transparent}
+.main-card:hover::before{opacity:1}
+.card-round{animation:fadeUp .6s .15s ease both}
+.card-round::before{background:var(--point)}
+.card-round:hover{border-color:var(--point-l)}
+.card-subject{animation:fadeUp .6s .22s ease both}
+.card-subject::before{background:var(--navy)}
+.card-subject:hover{border-color:var(--navy-l)}
+.card-random{grid-column:span 2;flex-direction:row;align-items:center;gap:20px;padding:1.6rem 2rem;animation:fadeUp .6s .29s ease both}
+.card-random::before{background:var(--orange)}
+.card-random:hover{border-color:var(--orange-l)}
+.card-random .card-body{flex:1}
+.card-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.card-round .card-icon{background:var(--point-l)}
+.card-subject .card-icon{background:var(--navy-l)}
+.card-random .card-icon{background:var(--orange-l);width:48px;height:48px;font-size:22px}
+.card-body{flex:1}
+.card-title{font-size:16px;font-weight:700;color:var(--text-main);letter-spacing:-.02em;margin-bottom:6px;line-height:1.4}
+.card-random .card-title{font-size:15px}
+.card-desc{font-size:12px;color:var(--text-sub);line-height:1.6}
+.card-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.chip{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500}
+.chip-p{background:var(--point-l);color:var(--point)}
+.chip-n{background:var(--navy-l);color:var(--navy)}
+.chip-o{background:var(--orange-l);color:var(--orange)}
+.card-arrow{align-self:flex-end;font-size:18px;color:var(--text-muted);transition:transform .2s,color .2s}
+.card-random .card-arrow{align-self:center;flex-shrink:0}
+.main-card:hover .card-arrow{transform:translate(3px,-3px)}
+.card-round:hover .card-arrow{color:var(--point)}
+.card-subject:hover .card-arrow{color:var(--navy)}
+.card-random:hover .card-arrow{color:var(--orange)}
+.notice{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:1.1rem 1.4rem;display:flex;gap:12px;align-items:flex-start;animation:fadeUp .6s .36s ease both}
+.notice-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.notice-text{font-size:12px;color:var(--text-sub);line-height:1.65}
+.notice-text strong{color:var(--text-main);font-weight:600}
+.pdf-btn-wrap{display:flex;justify-content:center;margin-bottom:2rem;animation:fadeUp .5s .08s ease both}
+.pdf-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:50px;background:linear-gradient(135deg,#0F766E 0%,#0B5C55 100%);color:#fff;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:-.02em;box-shadow:0 4px 18px rgba(15,118,110,.38);transition:all .22s ease;white-space:nowrap}
+.pdf-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(15,118,110,.50);filter:brightness(1.07)}
+.pdf-btn:active{transform:translateY(0);box-shadow:0 3px 10px rgba(15,118,110,.30)}
+.pdf-btn-icon{font-size:18px;line-height:1;flex-shrink:0}
+.footer{text-align:center;font-size:12px;color:var(--text-muted);padding:1.5rem;border-top:1px solid var(--border);width:100%}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:480px){
+  .main-cards{grid-template-columns:1fr}
+  .card-random{grid-column:span 1;flex-direction:column;padding:2rem 1.6rem 1.8rem}
+  .card-random .card-arrow{align-self:flex-end}
+  .stats-row{gap:8px}
+  .stat-num{font-size:22px}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="logo" href="index.html">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text">산안기 <span>필기</span> 기출문제</div>
+  </a>
+  <span class="header-badge" id="header-range">17~22년 전 회차</span>
+</header>
+
+<main class="main">
+  <div class="hero">
+    <span class="hero-eyebrow">산업안전기사 필기 대비</span>
+    <h1>필기 기출문제<em id="hero-total"> 2,040선</em><br>완전 정복</h1>
+    <p id="hero-desc">17~22년도 전 회차 필기 기출 복원문제<br>회차·과목별로 정답·해설·관련 법령까지 한 번에 학습하세요.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-total">2,040<sub>문항</sub></div>
+      <div class="stat-label">총 기출 문제</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-rounds">17<sub>회차</sub></div>
+      <div class="stat-label">전체 회차 수록</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-cats">6<sub>과목</sub></div>
+      <div class="stat-label">학습 카테고리</div>
+    </div>
+  </div>
+
+  <!-- PDF 샘플 버튼 -->
+  <div class="pdf-btn-wrap">
+    <a class="pdf-btn"
+       href="https://dreaming-ryan.com/home?product=%EC%82%B0%EC%97%85%EC%95%88%EC%A0%84%EA%B8%B0%EC%82%AC%20%EC%9A%94%EC%95%BD%EB%85%B8%ED%8A%B8%20PDF%20(%ED%95%84%EA%B8%B0)"
+       target="_blank"
+       rel="noopener noreferrer">
+      <span class="pdf-btn-icon">📙</span>
+      <span style="display:flex;flex-direction:column;align-items:flex-start;gap:2px">
+        <span>산안기 필기 요약노트 PDF</span>
+        <span style="font-size:13px;font-weight:500;opacity:.9">무료 샘플 받기</span>
+      </span>
+    </a>
+  </div>
+
+  <p class="section-label">학습 방식 선택</p>
+
+  <div class="main-cards">
+
+    <a class="main-card card-round" href="pilgi_by_round.html">
+      <div class="card-icon">📅</div>
+      <div class="card-body">
+        <div class="card-title">회차별<br>기출문제 풀기</div>
+        <div class="card-desc">연도·회차 순으로<br>실제 시험처럼 풀기</div>
+        <div class="card-chips" id="chips-round">
+          <span class="chip chip-p">17년~</span>
+          <span class="chip chip-p">22년</span>
+          <span class="chip chip-p">17회차</span>
+        </div>
+      </div>
+      <div class="card-arrow">↗</div>
+    </a>
+
+    <a class="main-card card-subject" href="pilgi_by_subject.html">
+      <div class="card-icon">🏷️</div>
+      <div class="card-body">
+        <div class="card-title">과목별<br>기출문제 풀기</div>
+        <div class="card-desc">취약한 과목을<br>집중 공략하기</div>
+        <div class="card-chips">
+          <span class="chip chip-n">안전관리론</span>
+          <span class="chip chip-n">인간공학</span>
+          <span class="chip chip-n">기계·전기</span>
+          <span class="chip chip-n">화학·건설</span>
+        </div>
+      </div>
+      <div class="card-arrow">↗</div>
+    </a>
+
+    <a class="main-card card-random" href="pilgi_random_quiz.html">
+      <div class="card-icon">🎲</div>
+      <div class="card-body">
+        <div class="card-title">기출문제 랜덤풀기</div>
+        <div class="card-desc">전 회차 기출문제를 무작위로 풀며 실력을 최종 점검해보세요.</div>
+        <div class="card-chips">
+          <span class="chip chip-o">전 회차</span>
+          <span class="chip chip-o">필터 검색</span>
+          <span class="chip chip-o">관련법령 연동</span>
+        </div>
+      </div>
+      <div class="card-arrow">↗</div>
+    </a>
+
+  </div>
+
+  <div class="notice">
+    <span class="notice-icon">💡</span>
+    <p class="notice-text">
+      <strong>학습 팁</strong> &nbsp;먼저 스스로 정답을 떠올린 뒤 카드를 클릭해 정답·해설을 확인하세요.
+      관련 법령이 함께 제공되어 출제 의도와 근거를 한 번에 학습할 수 있습니다.
+    </p>
+  </div>
+</main>
+
+<footer class="footer" id="footer-text">산업안전기사 필기 기출문제 학습 자료 · 17~22년</footer>
+
+<script src="pilgi_stats.js"></script>
+<script>
+/* 통계 모듈 로드 후 페이지 곳곳의 숫자/문구를 동적으로 갱신 */
+PilgiStats.load(stats => {
+  const fmt = PilgiStats.fmtComma;
+
+  // 1. 헤더 배지: "17~22년 전 회차"
+  const headerRange = document.getElementById('header-range');
+  if (headerRange) headerRange.textContent = `${stats.yearRangeText} 전 회차`;
+
+  // 2. hero 타이틀: "필기 기출문제 2,040선"
+  const heroTotal = document.getElementById('hero-total');
+  if (heroTotal) heroTotal.textContent = ` ${fmt(stats.totalQ)}선`;
+
+  // 3. hero 본문
+  const heroDesc = document.getElementById('hero-desc');
+  if (heroDesc) {
+    heroDesc.innerHTML =
+      `${stats.yearRangeText}도 전 회차 필기 기출 복원문제<br>` +
+      `회차·과목별로 정답·해설·관련 법령까지 한 번에 학습하세요.`;
+  }
+
+  // 4. 통계 카드 3개
+  const statTotal = document.getElementById('stat-total');
+  if (statTotal) statTotal.innerHTML = `${fmt(stats.totalQ)}<sub>문항</sub>`;
+  const statRounds = document.getElementById('stat-rounds');
+  if (statRounds) statRounds.innerHTML = `${stats.totalRounds}<sub>회차</sub>`;
+  const statCats = document.getElementById('stat-cats');
+  if (statCats) statCats.innerHTML = `${stats.totalSubjects}<sub>과목</sub>`;
+
+  // 5. 회차별 카드 chip
+  const chipsRound = document.getElementById('chips-round');
+  if (chipsRound && stats.years.length) {
+    const firstY = stats.years[0];
+    const lastY  = stats.years[stats.years.length - 1];
+    chipsRound.innerHTML =
+      `<span class="chip chip-p">${firstY}년~</span>` +
+      `<span class="chip chip-p">${lastY}년</span>` +
+      `<span class="chip chip-p">${stats.totalRounds}회차</span>`;
+  }
+
+  // 6. 푸터
+  const footerText = document.getElementById('footer-text');
+  if (footerText) {
+    footerText.textContent = `산업안전기사 필기 기출문제 학습 자료 · ${stats.yearRangeText}`;
+  }
+});
+</script>
+
+</body>
+</html>

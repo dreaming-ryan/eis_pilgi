@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>산업안전기사 필기 — 랜덤 퀴즈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c-bg:#F4F8F7;--c-surface:#FFFFFF;--c-border:#DCE8E5;--c-border2:#B9D2CC;
+  --c-text:#0F1A18;--c-text2:#4A5C58;--c-text3:#7E928D;
+  --c-accent:#0F766E;--c-accent-l:#E6F4F2;
+  --c-sub1:#B23A3A;--c-sub1-l:#FBE7E7;
+  --c-sub2:#7A4A9E;--c-sub2-l:#F3EAFB;
+  --c-sub3:#1A3F6F;--c-sub3-l:#E4EBF5;
+  --c-sub4:#1558B0;--c-sub4-l:#E4EDF9;
+  --c-sub5:#1A5F9E;--c-sub5-l:#E4EEF8;
+  --c-sub6:#7A5200;--c-sub6-l:#FEF3E2;
+  --r:10px;--r-sm:6px;--shadow:0 2px 12px rgba(15,26,24,.07);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Noto Sans KR",sans-serif;background:var(--c-bg);color:var(--c-text);line-height:1.7;min-height:100vh}
+.site-header{background:var(--c-surface);border-bottom:1.5px solid var(--c-border);padding:0 1.5rem;position:sticky;top:0;z-index:100}
+.header-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--c-text);text-decoration:none}
+.logo-badge{background:var(--c-accent);color:#fff;font-size:10px;font-weight:700;letter-spacing:.05em;padding:2px 8px;border-radius:20px}
+.header-back{font-size:13px;color:var(--c-text2);text-decoration:none;display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:var(--r-sm);transition:background .15s,color .15s}
+.header-back:hover{background:var(--c-accent-l);color:var(--c-accent)}
+.main-wrap{max-width:800px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.ctrl-panel{background:var(--c-surface);border:1.5px solid var(--c-border);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;box-shadow:var(--shadow)}
+.ctrl-group{display:flex;flex-direction:column;gap:6px}
+.ctrl-label{font-size:11px;font-weight:700;color:var(--c-text3);letter-spacing:.08em;text-transform:uppercase}
+.filter-tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;background:var(--c-bg);border:1.5px solid var(--c-border2);color:var(--c-text2);cursor:pointer;transition:all .15s;white-space:nowrap}
+.tag:hover{border-color:var(--c-accent);color:var(--c-accent);background:var(--c-accent-l)}
+.tag.active{background:var(--c-accent);border-color:var(--c-accent);color:#fff}
+.ctrl-sep{width:1px;background:var(--c-border);align-self:stretch}
+.progress-bar-wrap{background:var(--c-surface);border:1.5px solid var(--c-border);border-radius:var(--r);padding:1rem 1.5rem;margin-bottom:1.5rem;box-shadow:var(--shadow)}
+.progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progress-label{font-size:13px;font-weight:600;color:var(--c-text2)}
+.progress-count{font-size:20px;font-weight:700;color:var(--c-accent)}
+.progress-count span{font-size:13px;font-weight:400;color:var(--c-text3)}
+.progress-track{height:6px;background:var(--c-border);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:var(--c-accent);border-radius:3px;transition:width .4s ease}
+.stat-row{margin-top:8px}
+.stat-badge{font-size:12px;font-weight:500;color:var(--c-text3);background:var(--c-bg);padding:3px 10px;border-radius:20px;border:1px solid var(--c-border)}
+.pdf-btn-wrap{display:flex;justify-content:center;margin-bottom:1.2rem}
+.pdf-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:50px;background:linear-gradient(135deg,#0F766E 0%,#0B5A53 100%);color:#fff;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:-.02em;box-shadow:0 4px 18px rgba(15,118,110,.38);transition:all .22s ease;white-space:nowrap}
+.pdf-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(15,118,110,.50);filter:brightness(1.07)}
+.pdf-btn:active{transform:translateY(0);box-shadow:0 3px 10px rgba(15,118,110,.30)}
+.pdf-btn-icon{font-size:18px;line-height:1;flex-shrink:0}
+.quiz-card{background:var(--c-surface);border:1.5px solid var(--c-border);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;transition:box-shadow .2s}
+.quiz-card:hover{box-shadow:0 4px 24px rgba(15,26,24,.11)}
+.card-meta{display:flex;align-items:center;gap:8px;padding:12px 1.5rem 0;flex-wrap:wrap}
+.meta-year{font-size:12px;font-weight:700;color:var(--c-text3)}
+.meta-round{font-size:11px;color:var(--c-text3);background:var(--c-bg);padding:2px 8px;border-radius:4px;border:1px solid var(--c-border)}
+.cat-tag{display:inline-block;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.03em}
+.cat-1{background:var(--c-sub1-l);color:var(--c-sub1)}
+.cat-2{background:var(--c-sub2-l);color:var(--c-sub2)}
+.cat-3{background:var(--c-sub3-l);color:var(--c-sub3)}
+.cat-4{background:var(--c-sub4-l);color:var(--c-sub4)}
+.cat-5{background:var(--c-sub5-l);color:var(--c-sub5)}
+.cat-6{background:var(--c-sub6-l);color:var(--c-sub6)}
+.card-body{padding:1.25rem 1.5rem 0}
+.q-text{font-size:15px;line-height:1.8;color:var(--c-text);font-weight:500}
+.q-sub{font-size:14px;line-height:1.7;color:var(--c-text2);margin-top:6px}
+.choices{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.choice{display:flex;gap:8px;padding:10px 12px;background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--r-sm);font-size:14px;line-height:1.6;color:var(--c-text2);transition:all .15s}
+.choice-num{font-weight:700;color:var(--c-text3);flex-shrink:0}
+.choice-text{flex:1}
+.choice.correct{background:var(--c-accent-l);border-color:var(--c-accent);color:var(--c-accent)}
+.choice.correct .choice-num{color:var(--c-accent)}
+.ans-wrap{border-top:1.5px dashed var(--c-border);overflow:hidden;max-height:0;transition:max-height .4s ease}
+.ans-wrap.open{max-height:10000px}
+.ans-body{padding:1.25rem 1.5rem}
+.answer-val{font-size:16px;font-weight:700;color:var(--c-accent);line-height:1.6;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.answer-val .answer-num{font-size:22px}
+.exp-section{margin-top:14px;padding-top:14px;border-top:1px solid var(--c-border)}
+.exp-label{font-size:11px;font-weight:700;color:var(--c-text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.exp-body{font-size:13.5px;color:var(--c-text);line-height:1.75}
+.exp-body table{border-collapse:collapse;width:100%;margin:8px 0;font-size:12.5px}
+.exp-body th,.exp-body td{border:1px solid var(--c-border);padding:6px 8px;text-align:left}
+.exp-body th{background:var(--c-bg);font-weight:700}
+.exp-body img{max-width:100%;height:auto;border-radius:6px}
+.ans-seg{color:#1d6fcc;font-weight:500}
+.law-ref-wrap{margin-top:14px;border:1.5px solid #BDD0B7;border-radius:8px;overflow:hidden}
+.law-ref-header{background:#E5F2E7;padding:9px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.law-ref-badge{background:#2D7A3A;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px}
+.law-ref-title{font-size:12px;font-weight:600;color:#1C3A20;flex:1}
+.law-ref-toggle{font-size:11px;color:#4A7A52;font-weight:500;white-space:nowrap}
+.law-ref-body{background:#f8fbf8;padding:12px 16px;display:none}
+.law-ref-body.open{display:block}
+.law-article{margin-bottom:12px}
+.law-article:last-child{margin-bottom:0}
+.law-article-title{font-size:12.5px;font-weight:700;color:#3A5A3E;margin-bottom:4px}
+.law-article-source{font-size:11px;font-weight:700;color:#2D7A3A;margin-bottom:4px}
+.law-article-text{font-size:12px;color:#3A5A3E;line-height:1.75}
+.btn-close-ans{display:block;width:100%;margin-top:12px;background:var(--c-bg);border:1.5px solid var(--c-border);color:var(--c-text3);border-radius:var(--r-sm);padding:8px;font-size:13px;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-close-ans:hover{background:var(--c-accent-l);color:var(--c-accent);border-color:var(--c-accent)}
+.card-actions{padding:0 1.5rem 1.25rem;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:1.25rem}
+.btn-reveal{flex:0 0 auto;background:var(--c-accent);color:#fff;border:none;border-radius:var(--r-sm);padding:10px 28px;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-reveal:hover{background:#0B5A53;transform:translateY(-1px)}
+.btn-reveal.revealed{background:var(--c-bg);color:var(--c-text3);border:1.5px solid var(--c-border)}
+.btn-next{background:var(--c-surface);border:1.5px solid var(--c-accent);color:var(--c-accent);border-radius:var(--r-sm);padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-next:hover{background:var(--c-accent-l);transform:translateY(-1px)}
+.btn-skip{background:var(--c-surface);border:1.5px solid var(--c-border2);color:var(--c-text3);border-radius:var(--r-sm);padding:10px 16px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-skip:hover{background:var(--c-bg)}
+.done-card{display:none;text-align:center;background:var(--c-surface);border:1.5px solid var(--c-border);border-radius:var(--r);padding:3rem 2rem;box-shadow:var(--shadow)}
+.done-card.show{display:block}
+.done-emoji{font-size:48px;margin-bottom:1rem}
+.done-title{font-size:22px;font-weight:700;margin-bottom:.5rem}
+.done-desc{font-size:14px;color:var(--c-text2);margin-bottom:1.5rem;white-space:pre-line}
+.btn-restart{background:var(--c-accent);color:#fff;border:none;border-radius:var(--r-sm);padding:12px 32px;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-restart:hover{background:#0B5A53;transform:translateY(-1px)}
+.empty-msg{display:none;text-align:center;padding:3rem 2rem;font-size:14px;color:var(--c-text3);background:var(--c-surface);border:1.5px solid var(--c-border);border-radius:var(--r);box-shadow:var(--shadow)}
+.empty-msg.show{display:block}
+.loading{text-align:center;padding:3rem 2rem;color:var(--c-text3);font-size:14px}
+@media(max-width:600px){.ctrl-panel{flex-direction:column}.ctrl-sep{width:100%;height:1px}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-badge">📚</span>
+      산업안전기사 필기
+    </a>
+    <a href="index.html" class="header-back">← 홈으로</a>
+  </div>
+</header>
+<main class="main-wrap">
+  <div class="ctrl-panel">
+    <div class="ctrl-group">
+      <div class="ctrl-label">연도 필터</div>
+      <div class="filter-tags" id="filter-year">
+        <span class="tag active" onclick="setYear('all',this)">전체</span>
+      </div>
+    </div>
+    <div class="ctrl-sep"></div>
+    <div class="ctrl-group">
+      <div class="ctrl-label">회차 필터</div>
+      <div class="filter-tags" id="filter-session">
+        <span class="tag active" onclick="setSession('all',this)">전체</span>
+      </div>
+    </div>
+    <div class="ctrl-sep"></div>
+    <div class="ctrl-group">
+      <div class="ctrl-label">과목 필터</div>
+      <div class="filter-tags" id="filter-subject">
+        <span class="tag active" onclick="setSubject('all',this)">전체</span>
+      </div>
+    </div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-row">
+      <div class="progress-label">학습 진행</div>
+      <div class="progress-count"><span id="cnt-done">0</span> / <span id="cnt-total">0</span> <span>문제</span></div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="stat-row">
+      <span class="stat-badge" id="stat-pool">총 0문제</span>
+    </div>
+  </div>
+  <div class="pdf-btn-wrap">
+    <a class="pdf-btn"
+       href="https://dreaming-ryan.com/home?product=%EC%82%B0%EC%97%85%EC%95%88%EC%A0%84%EA%B8%B0%EC%82%AC%20%EC%9A%94%EC%95%BD%EB%85%B8%ED%8A%B8%20PDF%20(%ED%95%84%EA%B8%B0)"
+       target="_blank" rel="noopener noreferrer">
+      <span class="pdf-btn-icon">📙</span>
+      <span style="display:flex;flex-direction:column;align-items:flex-start;gap:2px">
+        <span>산안기 필기 요약노트 PDF</span>
+        <span style="font-size:13px;font-weight:500;opacity:.9">무료 샘플 받기</span>
+      </span>
+    </a>
+  </div>
+  <div id="quiz-area">
+    <div class="loading">📚 기출문제를 불러오는 중...</div>
+  </div>
+  <div class="done-card" id="done-card">
+    <div class="done-emoji">🎉</div>
+    <div class="done-title">모든 문제를 완료했습니다!</div>
+    <div class="done-desc" id="done-desc">선택한 조건의 모든 필기 기출문제를 풀었습니다.\n다시 풀어보며 실력을 다져보세요.</div>
+    <button class="btn-restart" onclick="restart()">다시 풀기</button>
+  </div>
+  <div class="empty-msg" id="empty-msg">
+    <div style="font-size:32px;margin-bottom:12px">🔍</div>
+    선택한 조건에 해당하는 문제가 없습니다.<br>필터를 변경해 주세요.
+  </div>
+</main>
+<script src="pilgi_stats.js"></script>
+<script>
+let curYear    = 'all';
+let curSession = 'all';
+let curSubject = 'all';
+let pool       = [];
+let cursor     = 0;
+let questions  = [];
+let SAFETY_SIGN_IMG = '';
+
+const CIRCLE = ["①","②","③","④","⑤"];
+
+const SUBJECT_NAME = {
+  1: "1과목 · 안전관리론",
+  2: "2과목 · 인간공학 및 시스템안전공학",
+  3: "3과목 · 기계위험방지기술",
+  4: "4과목 · 전기위험방지기술",
+  5: "5과목 · 화학설비위험방지기술",
+  6: "6과목 · 건설안전기술"
+};
+
+// 회차 라벨은 stats.sortedRounds에서 동적으로 생성됨
+let ROUND_LABEL = {};
+
+fetch('sanup_safety_quiz.html')
+  .then(r => r.text())
+  .then(html => {
+    // SAFETY_SIGN_IMG 추출
+    const imgMatch = html.match(/const\s+SAFETY_SIGN_IMG\s*=\s*"([^"]*)";/);
+    if (imgMatch) {
+      SAFETY_SIGN_IMG = imgMatch[1];
+    }
+    // QUESTIONS 배열 추출
+    const m = html.match(/const QUESTIONS\s*=\s*(\[[\s\S]*?\]);\s*\n/);
+    if (!m) {
+      console.error('QUESTIONS 배열 추출 실패');
+      document.getElementById('quiz-area').innerHTML = '<div class="loading">⚠️ 문제 데이터를 불러올 수 없습니다.</div>';
+      return;
+    }
+    // SAFETY_SIGN_IMG를 정의한 후 평가
+    const fnBody = 'const SAFETY_SIGN_IMG = ' + JSON.stringify(SAFETY_SIGN_IMG) + ';\nreturn ' + m[1] + ';';
+    questions = (new Function(fnBody))();
+
+    // PilgiStats 모듈로 메타데이터를 받아 필터 탭과 라벨을 동적으로 생성
+    PilgiStats.load(stats => {
+      // 1. ROUND_LABEL 동적 생성 ("22-2" → "22년 2회")
+      stats.sortedRounds.forEach(r => {
+        const [y, s] = r.split('-');
+        ROUND_LABEL[r] = `${y}년 ${s}회`;
+      });
+
+      // 2. 연도 필터 탭 — 최신 연도부터 역순
+      const yearWrap = document.getElementById('filter-year');
+      stats.years.slice().sort((a, b) => parseInt(b) - parseInt(a)).forEach(yy => {
+        const tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.textContent = yy + '년';
+        tag.onclick = function () { setYear(yy, this); };
+        yearWrap.appendChild(tag);
+      });
+
+      // 3. 회차 필터 탭 — 모든 회차에서 등장하는 session 번호의 합집합
+      const sessionSet = new Set();
+      Object.values(stats.yearRounds).forEach(arr => arr.forEach(s => sessionSet.add(s)));
+      const sessionList = [...sessionSet].sort((a, b) => parseInt(a) - parseInt(b));
+      const sessionWrap = document.getElementById('filter-session');
+      sessionList.forEach(s => {
+        const tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.textContent = s + '회';
+        tag.onclick = function () { setSession(s, this); };
+        sessionWrap.appendChild(tag);
+      });
+
+      // 4. 과목 필터 탭
+      const subjectWrap = document.getElementById('filter-subject');
+      Object.keys(stats.subjectCounts)
+        .map(n => parseInt(n, 10))
+        .sort((a, b) => a - b)
+        .forEach(n => {
+          const tag = document.createElement('span');
+          tag.className = 'tag';
+          tag.textContent = n + '과목';
+          tag.onclick = function () { setSubject(n, this); };
+          subjectWrap.appendChild(tag);
+        });
+
+      rebuildPool();
+    });
+  })
+  .catch(e => {
+    console.error('fetch 오류:', e);
+    document.getElementById('quiz-area').innerHTML = '<div class="loading">⚠️ 문제 데이터를 불러올 수 없습니다.</div>';
+  });
+
+function setYear(v, el) {
+  curYear = v;
+  document.querySelectorAll('#filter-year .tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  rebuildPool();
+}
+
+function setSession(v, el) {
+  curSession = v;
+  document.querySelectorAll('#filter-session .tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  rebuildPool();
+}
+
+function setSubject(v, el) {
+  curSubject = v;
+  document.querySelectorAll('#filter-subject .tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  rebuildPool();
+}
+
+function rebuildPool() {
+  const filtered = questions.filter(q => {
+    const parts = (q.round || '').split('-');
+    const yearPart = parts[0];
+    const sessionPart = parts[1];
+    const yOk = curYear === 'all' || yearPart === curYear;
+    const seOk = curSession === 'all' || sessionPart === curSession;
+    const sOk = curSubject === 'all' || q.subject === curSubject;
+    return yOk && seOk && sOk;
+  });
+  const arr = filtered.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  pool   = arr;
+  cursor = 0;
+  updateProgress();
+  showQuestion();
+}
+
+function updateProgress() {
+  const total = pool.length;
+  const done  = cursor;
+  document.getElementById('cnt-done').textContent  = done;
+  document.getElementById('cnt-total').textContent = total;
+  document.getElementById('stat-pool').textContent = '총 ' + total + '문제';
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderLawSection(law) {
+  if (!law || !Array.isArray(law) || law.length === 0) return '';
+  const articlesHTML = law.map(item => `
+    <div class="law-article">
+      ${item.title ? `<div class="law-article-title">${item.title}</div>` : ''}
+      ${item.source ? `<div class="law-article-source">📖 ${item.source}</div>` : ''}
+      ${item.text ? `<div class="law-article-text">${item.text}</div>` : ''}
+    </div>
+  `).join('');
+  return `
+    <div class="law-ref-wrap">
+      <div class="law-ref-header" onclick="toggleLaw(this)">
+        <span class="law-ref-badge">법령</span>
+        <span class="law-ref-title">관련 법령 본문</span>
+        <span class="law-ref-toggle">▼ 펼치기</span>
+      </div>
+      <div class="law-ref-body">${articlesHTML}</div>
+    </div>
+  `;
+}
+
+function toggleLaw(headerEl) {
+  const body = headerEl.nextElementSibling;
+  const toggle = headerEl.querySelector('.law-ref-toggle');
+  body.classList.toggle('open');
+  toggle.textContent = body.classList.contains('open') ? '▲ 접기' : '▼ 펼치기';
+}
+
+function showQuestion() {
+  const area     = document.getElementById('quiz-area');
+  const doneCard = document.getElementById('done-card');
+  const emptyMsg = document.getElementById('empty-msg');
+  doneCard.classList.remove('show');
+  emptyMsg.classList.remove('show');
+  area.innerHTML = '';
+
+  if (pool.length === 0) { emptyMsg.classList.add('show'); return; }
+  if (cursor >= pool.length) {
+    document.getElementById('done-desc').textContent =
+      '필기 기출문제 ' + pool.length + '문제를 모두 풀었습니다!\n다시 풀어보며 실력을 다져보세요.';
+    doneCard.classList.add('show');
+    return;
+  }
+
+  const q = pool[cursor];
+  const yearPart = (q.round || '').split('-')[0];
+  const roundLabel = ROUND_LABEL[q.round] || q.round;
+  const subjectName = SUBJECT_NAME[q.subject] || ('과목 ' + q.subject);
+
+  // 객관식 4지선다 렌더링
+  const choicesHTML = (q.choices || []).map((c, i) => {
+    const isCorrect = (i + 1) === q.answer;
+    return `
+      <div class="choice ${isCorrect ? 'correct' : ''}">
+        <span class="choice-num">${CIRCLE[i]}</span>
+        <span class="choice-text">${c}</span>
+      </div>
+    `;
+  }).join('');
+
+  const card = document.createElement('div');
+  card.className = 'quiz-card';
+  card.innerHTML =
+    '<div class="card-meta">' +
+      '<span class="meta-year">' + yearPart + '년</span>' +
+      '<span class="meta-round">' + roundLabel + '</span>' +
+      '<span class="cat-tag cat-' + q.subject + '">' + subjectName + '</span>' +
+      '<span style="margin-left:auto;font-size:11px;color:var(--c-text3)">Q' + (cursor+1) + ' / ' + pool.length + '</span>' +
+    '</div>' +
+    '<div class="card-body">' +
+      '<div class="q-text">' + (q.stem || '') + '</div>' +
+      (q.sub ? '<div class="q-sub">' + q.sub + '</div>' : '') +
+      '<div class="choices">' + choicesHTML + '</div>' +
+    '</div>' +
+    '<div class="card-actions" id="card-actions">' +
+      '<button class="btn-skip" id="btn-skip" onclick="skip()">건너뛰기</button>' +
+      '<button class="btn-reveal" id="btn-reveal" onclick="reveal()">정답 보기</button>' +
+    '</div>' +
+    '<div class="ans-wrap" id="ans-wrap">' +
+      '<div class="ans-body">' +
+        '<div class="answer-val">' +
+          '<span class="answer-num">' + CIRCLE[q.answer - 1] + '</span>' +
+          '<span>' + (q.choices ? q.choices[q.answer - 1] : '') + '</span>' +
+        '</div>' +
+        (q.explain ? '<div class="exp-section"><div class="exp-label">해설</div><div class="exp-body">' + q.explain + '</div></div>' : '') +
+        renderLawSection(q.law) +
+        '<button class="btn-close-ans" onclick="closeAns()">▲ 정답 닫기</button>' +
+      '</div>' +
+    '</div>';
+  area.appendChild(card);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function reveal() {
+  document.getElementById('ans-wrap').classList.add('open');
+  const btn  = document.getElementById('btn-reveal');
+  const skip = document.getElementById('btn-skip');
+  btn.textContent = '다음 문제';
+  btn.classList.add('revealed');
+  btn.onclick = next;
+  if (skip) skip.style.display = 'none';
+}
+
+function closeAns() {
+  document.getElementById('ans-wrap').classList.remove('open');
+  const btn  = document.getElementById('btn-reveal');
+  const skip = document.getElementById('btn-skip');
+  btn.textContent = '정답 보기';
+  btn.classList.remove('revealed');
+  btn.onclick = reveal;
+  if (skip) skip.style.display = '';
+}
+
+function next() { cursor++; updateProgress(); showQuestion(); }
+
+function skip() {
+  const cur = pool.splice(cursor, 1)[0];
+  pool.push(cur);
+  showQuestion();
+}
+
+function restart() { rebuildPool(); }
+</script>
+</body>
+</html>
